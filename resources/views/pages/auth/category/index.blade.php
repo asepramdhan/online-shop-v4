@@ -23,8 +23,8 @@ state(['headers' => fn () => [
       </x-slot:actions>
     </x-header>
     @if(session()->has('success'))
-    <x-alert icon="o-exclamation-triangle" class="alert-success">
-      {{ session(success) }}
+    <x-alert icon="o-exclamation-triangle" class="alert-success mb-3">
+      {{ session('success') }}
     </x-alert>
     @endif
     <x-table :headers="$headers" :rows="$categories" link="/auth/category/{id}" with-pagination striped>

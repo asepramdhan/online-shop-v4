@@ -27,7 +27,15 @@ state(['headers' => fn () => [
         <x-button icon="o-plus" class="btn-primary" link="/auth/product/create" />
       </x-slot:actions>
     </x-header>
+    @if(session()->has('success'))
+    <x-alert icon="o-exclamation-triangle" class="alert-success mb-3">
+      {{ session('success') }}
+    </x-alert>
+    @endif
     <x-table :headers="$headers" :rows="$products" link="/auth/product/{id}" with-pagination striped>
+      @scope('cell_id', $product)
+      <strong>{{ $this->loop->iteration }}</strong>
+      @endscope
       @scope('cell_image', $product)
       <x-avatar :image="asset('storage/' . $product->image)" class="!w-14 !rounded-lg" />
       @endscope

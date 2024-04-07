@@ -6,6 +6,10 @@
   <title>{{ $title ?? 'Page Title' }}</title>
   {{-- Add this  --}}
   @vite(['resources/css/app.css', 'resources/js/app.js'])
+  {{-- Make sure you have this --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  {{-- TinyMCE --}}
+  <script src="https://cdn.tiny.cloud/1/86z9mqpamxj7nat92312wl1goqieuaduddcyuk8z2zr45d2u/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body class="font-sans antialiased">
   <x-dashboard-navbar />

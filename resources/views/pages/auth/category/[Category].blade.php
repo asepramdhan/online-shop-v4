@@ -8,6 +8,7 @@ mount(function () {
 $save = function () {
   $validatedData = $this->validate();
   $this->category->update($validatedData);
+  session()->flash('success', 'Category has been updated');
   $this->redirect('/auth/category', navigate: true);
 }
 ?>
