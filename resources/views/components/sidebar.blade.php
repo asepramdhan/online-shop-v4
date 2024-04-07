@@ -13,8 +13,8 @@
       {{-- Activates the menu item when a route matches the `link` property --}}
       <x-menu activate-by-route>
         <x-menu-item title="Dashboard" icon="o-chart-pie" link="/auth/dashboard" />
-        <x-menu-item title="Orders" icon="o-gift" link="###" />
-        <x-menu-item title="Customers" icon="o-user" link="###" />
+        <x-menu-item title="Orders" icon="o-gift" link="/auth/order" />
+        <x-menu-item title="Customers" icon="o-user" link="/auth/customer" />
         <x-menu-sub title="Warehouse" icon="o-wrench-screwdriver">
           <x-menu-item title="Categories" icon="o-hashtag" link="/auth/category" />
           <x-menu-item title="Products" icon="o-shopping-cart" link="/auth/product" />
