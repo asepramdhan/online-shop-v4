@@ -10,6 +10,10 @@ state(['headers' => fn () => [
   ['key' => 'created_at', 'label' => 'Created at'],
   ]
 ]);
+$delete = function ($id) {
+  Category::find($id)->delete();
+  $this->dispatch('categories');
+}
 ?>
 <x-dashboard-layout>
   @volt
