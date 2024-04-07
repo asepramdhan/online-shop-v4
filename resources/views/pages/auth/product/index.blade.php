@@ -3,7 +3,7 @@ use App\Models\Product;
 use function Livewire\Volt\{state, with, usesPagination};
 with(fn () => ['products' => Product::paginate(10)]);
 usesPagination();
-state(['headers' => fn () => [
+state(['modalDelete' => false, 'headers' => fn () => [
     ['key' => 'id', 'label' => '#', 'class' => 'bg-red-500/20'], # <--- custom CSS
     ['key' => 'image', 'label' => 'Image'],
     ['key' => 'name', 'label' => 'Name'],
@@ -44,7 +44,12 @@ state(['headers' => fn () => [
       @endscope
       {{-- Special `actions` slot --}}
       @scope('actions', $product)
-      <x-button icon="o-trash" wire:click="delete({{ $product->id }})" spinner class="btn-sm" />
+      <x-button icon="o-trash" @click="$wire.modalDelete = true" class="btn-sm" />
+      <x-modal wire:model="modalDelete" class="backdrop-blur text-center">
+        <div class="mb-5">Are you sure you want to delete this product?</div>
+        <x-button label="Cancel" @click="$wire.modalDelete = false" />
+        <x-button label="Delete" @click="$wire.modalDelete = false; $wire.delete({{ $product->id }})" />
+      </x-modal>
       @endscope
     </x-table>
   </div>
