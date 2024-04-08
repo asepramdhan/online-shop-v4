@@ -1,7 +1,7 @@
 <?php
 use App\Models\Product;
 use function Livewire\Volt\{state, with, usesPagination};
-with(fn () => ['products' => Product::paginate(10)]);
+with(fn () => ['products' => Product::with('category')->paginate(10)]);
 usesPagination();
 state(['modalDelete' => false, 'headers' => fn () => [
     ['key' => 'id', 'label' => '#', 'class' => 'bg-red-500/20'], # <--- custom CSS

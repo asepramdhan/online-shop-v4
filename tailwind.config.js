@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: "class",
     daisyui: {
         themes: ["light", "dark", "cupcake", "aqua", "pastel", "corporate"],
     },

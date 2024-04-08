@@ -1,12 +1,12 @@
 <?php
-use App\Models\Category;
+use App\Models\Order;
 use function Livewire\Volt\{state, with, usesPagination};
-with(fn () => ['categories' => Category::paginate(10)]);
+with(fn () => ['orders' => Order::with('user', 'products')->paginate(10)]);
 usesPagination();
 state(['headers' => fn () => [
   ['key' => 'id', 'label' => '#', 'class' => 'bg-red-500/20'], # <--- custom CSS
-  ['key' => 'date', 'label' => 'Date'],
-  ['key' => 'customer', 'label' => 'Customer'],
+  ['key' => 'created_at', 'label' => 'Date'],
+  ['key' => 'user_id', 'label' => 'Customer'],
   ['key' => 'country', 'label' => 'Country'],
   ['key' => 'status', 'label' => 'Status'],
   ]
@@ -32,16 +32,26 @@ $delete = function ($id) {
       {{ session('success') }}
     </x-alert>
     @endif
-    <x-table :headers="$headers" :rows="$categories" link="/auth/category/{id}" with-pagination striped>
-      @scope('cell_id', $category)
+    <x-table :headers="$headers" :rows="$orders" link="/auth/category/{id}" with-pagination striped>
+      @scope('cell_id', $order)
       <strong>{{ $this->loop->iteration }}</strong>
       @endscope
-      @scope('cell_product', $category)
-      {{-- hitung produk sesuai category --}}
-      ({{ $category->product->count() }}) Product
+      @scope('cell_user_id', $order)
+      {{ $order->user->name }}
       @endscope
-      @scope('cell_created_at', $category)
-      {{ $category->created_at->format('d-m-Y') }}
+      @scope('cell_created_at', $order)
+      {{ $order->created_at->format('d-m-Y') }}
+      @endscope
+      @scope('cell_status', $order)
+      @if($order->status == 1)
+      <span class="badge badge-success">Paid</span>
+      @elseif($order->status == 0)
+      <span class="badge badge-warning">Unpaid</span>
+      @elseif($order->status == 2)
+      <span class="badge badge-danger">Cancelled</span>
+      @elseif($order->status == 3)
+      <span class="badge badge-primary">Delivered</span>
+      @endif
       @endscope
     </x-table>
   </div>
